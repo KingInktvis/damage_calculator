@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+</head>
+<body>
+<div>
+    <h3>Input</h3><br/>
+    Minimum damage <input type="number" id="minD"/><br/>
+    Maximum damage <input type="number" id="maxD"/><br/>
+    Crit change <input type="number" id="cc"/><br/>
+    Crit multiplier <input type="number" id="cm"/><br/>
+    Speed <input type="number" id="speed"><br/>
+    <button onclick="calculate()">Calculate</button>
+</div>
+<div>
+    <h3>Results</h3><br/>
+    Base damage per attack (DPA): <input id="dpa" readonly/><br/>
+    Crit damage per attack (CDPA): <input id="cdpa" readonly/><br/>
+    Normal damage per attack (NDPA): <input id="ndpa" readonly/><br/>
+    Full damage per attack (FDPA): <input id="fdpa" readonly/><br/>
+    Damage per second (DPS): <input id="dps" readonly/><br/>
+</div>
+<script>
+    function calculate() {
+        const min_damage = document.getElementById("minD").value;
+        const max_damage  = document.getElementById("maxD").value;
+        const crit_change = document.getElementById("cc").value;
+        const crit_multi  = document.getElementById("cm").value;
+        const speed = document.getElementById("speed").value;
+
+        const dpa = (min_damage + max_damage) / 2;
+        const cdpa = dpa * crit_change * crit_multi;
+        const ndpa = dpa * (1 - crit_change);
+        const fdpa = cdpa + ndpa;
+        const dps = fdpa / speed;
+
+        document.getElementById("dpa").value = dpa;
+        document.getElementById("cdpa").value = cdpa;
+        document.getElementById("ndpa").value = ndpa;
+        document.getElementById("fdpa").value = fdpa;
+        document.getElementById("dps").value = dps;
+    }
+</script>
+</body>
+</html>
